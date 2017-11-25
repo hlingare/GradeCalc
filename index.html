@@ -4,6 +4,7 @@
 <head>
     <title>Purdue GPA</title>
     <link href="main.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 
 <body>
@@ -213,6 +214,7 @@
         </div>
         <input type="submit" onclick="submitForm();return false;">
     </form>
+    <canvas id="bar-chart" width="800" height="450"></canvas>
     <p id="gpa"></p>
     <script src="calculation.js"></script>
 </body>

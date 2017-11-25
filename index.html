@@ -5,10 +5,20 @@
     <title>Purdue GPA</title>
     <link href="main.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 </head>
 
+
+
+
 <body>
+  <center>
     <h1>Purdue GPA Calculator</h1>
+  </center>
+  </br>
     <form id="classList">
 
         <div class="class" id="class1"> Class 1
@@ -37,9 +47,8 @@
                 <option>D-</option>
                 <option>F/I</option>
             </select>
-
         </div>
-
+      </br>
         <div class="class" id="class2"> Class 2
           <input type="text" name="ClassName">
             <select name="weight">
@@ -68,7 +77,7 @@
             </select>
 
         </div>
-
+        </br>
         <div class="class" id="class3"> Class 3
           <input type="text" name="ClassName">
             <select name="weight">
@@ -97,7 +106,7 @@
             </select>
 
         </div>
-
+        </br>
         <div class="class" id="class4"> Class 4
           <input type="text" name="ClassName">
             <select name="weight">
@@ -126,7 +135,7 @@
             </select>
 
         </div>
-
+        </br>
         <div class="class" id="class5"> Class 5
           <input type="text" name="ClassName">
             <select name="weight">
@@ -155,7 +164,7 @@
             </select>
 
         </div>
-
+        </br>
         <div class="class" id="class6"> Class 6
           <input type="text" name="ClassName">
             <select name="weight">
@@ -182,9 +191,8 @@
                 <option>D-</option>
                 <option>F/I</option>
             </select>
-
         </div>
-
+        </br>
         <div class="class" id="class7"> Class 7
           <input type="text" name="ClassName">
             <select name="weight7">
@@ -212,10 +220,28 @@
                 <option>F/I</option>
             </select>
         </div>
+        </br>
         <input type="submit" onclick="submitForm();return false;">
     </form>
-    <canvas id="bar-chart" width="800" height="450"></canvas>
+  <!-- </center> -->
+    <!-- <canvas id="bar-chart" width="800" height="450"></canvas> -->
     <p id="gpa"></p>
     <script src="calculation.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+          apiKey: "AIzaSyAmXoAE4CYeOkVf_tf3kwVBQb7DuuPFXyQ",
+          authDomain: "gpacalc-64745.firebaseapp.com",
+          databaseURL: "https://gpacalc-64745.firebaseio.com",
+          projectId: "gpacalc-64745",
+          storageBucket: "gpacalc-64745.appspot.com",
+          messagingSenderId: "1048611090244"
+        };
+        firebase.initializeApp(config);
+    </script>
+    
 </body>
 </html>

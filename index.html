@@ -237,6 +237,7 @@
         </div>
         </br>
         <input type="submit" onclick="submitForm();return false;">
+        <button type="button" onclick="loadDoc()">Change Content</button>
     </form>
   <!-- </center> -->
     <!-- <canvas id="bar-chart" width="800" height="450"></canvas> -->
@@ -244,6 +245,19 @@
     <script src="calculation.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+    <script>
+      function loadDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("demo").innerHTML =
+            this.responseText;
+          }
+        };
+        xhttp.open("GET", "ajax_info.txt", true);
+        xhttp.send();
+      }
+    </script>
 
     <script>
         // Initialize Firebase

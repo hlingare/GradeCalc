@@ -19,6 +19,42 @@ function submitForm() {
     div.innerHTML = "Your Purdue GPA is " + gpa;
 }
 
+function sendData(){
+
+  var firstNames1 = document.getElementById('FirstName').value;
+//  console.log(firstNames);
+  var lastNames1 = document.getElementById('LastName').value;
+
+  var gender =document.getElementsByName('gender')[0];
+  var genderType = gender.options[gender.selectedIndex].getAttribute('value');
+
+  var classStanding =document.getElementsByName('classStanding')[0];
+  var classStandingType = classStanding.options[classStanding.selectedIndex].getAttribute('value');
+
+
+  var housing =document.getElementsByName('HousingSituation1')[0];
+  var housingType = housing.options[housing.selectedIndex].getAttribute('value');
+
+  var schoolComp =document.getElementsByName('School1')[0];
+  var schoolType = schoolComp.options[schoolComp.selectedIndex].getAttribute('value');
+
+  var Internship =document.getElementsByName('numInternship')[0];
+  var numInternship = Internship.options[Internship.selectedIndex].getAttribute('value');
+
+  var gpa = document.getElementById('gpa').value;
+
+  console.log(firstNames1);
+  console.log(lastNames1);
+  console.log(genderType);
+  console.log(classStandingType);
+  console.log(housingType);
+  console.log(schoolType);
+  console.log(numInternship);
+  console.log(gpa);
+
+  console.log("went in send data");
+}
+
 function round(value, precision) {
     var multiplier = Math.pow(10, precision || 0);
     return Math.round(value * multiplier) / multiplier;

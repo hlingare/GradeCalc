@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<script src="calculation.js"></script>
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">GradeCalc</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="index.html">Home</a>
+      <a class="nav-item nav-link" href="graphs.html">Graphs</a>
+      <a class="nav-item nav-link active" href="faq.html">Form<span class="sr-only">(current)</span></a>
+    </div>
+  </div>
+</nav>
+
+<div>Enter First Name
+    <input type="input" id="FirstName">
+</div>
+<div>Enter LastName
+    <input type="input" id="LastName">
+</div>
+<div id="gender1"> Gender
+    <select name = "gender">
+      <option value="Male" selected>Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+</div>
+<div id="ClassStanding"> Class Standing
+    <select name = "classStanding">
+      <option value="Freshman" selected>Freshman</option>
+      <option value="Sophmore">Sophmore</option>
+      <option value="Junior">Junior</option>
+      <option value="Senior">Senior</option>
+    </select>
+</div>
+<div id="HousingSituation"> Housing Situation
+    <select name = "HousingSituation1">
+      <option value="On Campus" selected>On Campus</option>
+      <option value="Off Campus">Off Campus</option>
+    </select>
+</div>
+<div id="School">Schools
+    <select name = "School1">
+      <option value="College of Agriculture" selected>College of Agriculture</option>
+      <option value="College of Education">College of Education</option>
+      <option value="College of Health and Human Sciences">College of Health and Human Sciences</option>
+      <option value="College of Liberal Arts">College of Liberal Arts</option>
+      <option value="Krannert School of Management">Krannert School of Management</option>
+      <option value="College of Pharmacy">College of Pharmacy</option>
+      <option value="Purdue Polytechnic Institute">Purdue Polytechnic Institute</option>
+      <option value="College of Science">College of Science</option>
+      <option value="College of Veterinary Medicine">College of Veterinary Medicine</option>
+      <option value="Honors College">Honors College</option>
+      <option value="The Graduate School">The Graduate School</option>
+    </select>
+</div>
+<div> Number of Internships
+<select name = "numInternship">
+  <option value="0" selected>0</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+</select>
+</div>
+<div>Enter GPA
+    <input type="text" id="gpa">
+</div>
+<input type="submit" onclick="sendData();return false;">
+</html>

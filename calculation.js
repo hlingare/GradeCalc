@@ -1,3 +1,5 @@
+
+
 function submitForm() {
     var totalSum = 0;
     var totalCredits = 0;
@@ -21,6 +23,7 @@ function submitForm() {
 
 function sendData(){
 
+
   var firstNames1 = document.getElementById('FirstName').value;
 //  console.log(firstNames);
   var lastNames1 = document.getElementById('LastName').value;
@@ -42,6 +45,72 @@ function sendData(){
   var numInternship = Internship.options[Internship.selectedIndex].getAttribute('value');
 
   var gpa = document.getElementById('gpa').value;
+
+
+  var data = {
+    FirstName: firstNames1,
+    lastName: lastNames1,
+    Gender: genderType,
+    ClassYear: classStandingType,
+    Housing: housingType,
+    School: schoolType,
+    InternshipNum: numInternship,
+    gpaNum: gpa
+  };
+
+  var x = new XMLHttpRequest()
+
+x.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+window.location.href = "youtube.html"
+}
+}
+
+x.open("POST", "http://localhost:8080/faq", true);
+x.setRequestHeader("Content-type", "application/json");
+x.send(JSON.stringify({FirstName: firstNames1,
+  lastName: lastNames1,
+  Gender: genderType,
+  ClassYear: classStandingType,
+  Housing: housingType,
+  School: schoolType,
+  InternshipNum: numInternship,
+  gpaNum: gpa}));
+
+  console.log(data);
+
+  console.log("went in send data");
+  return data;
+
+
+
+/*  const client = new pg.Client({
+    user: 'lwcgiddjtbmhdx',
+    host: 'ec2-184-73-202-112.compute-1.amazonaws.com',
+    database: 'dc9d3cs6oinv8d',
+    password: '69b00ca84a3bf00a6ffc4b26fb7fc3df3fbfd4b1bd38623e096f9028bfc65405',
+    port: 5432,
+
+  })
+  client.connect();
+
+  const text = "INSERT INTO student (username, firstname, lastname, gender, class_standing, housing, schools, num_internships, gpa)";
+  const values = [firstNames1, lastNames1, genderType, classStandingType, housingType,schoolType,numInternship,gpa];
+
+  client.query(text, values, (err, res) => {
+  if (err) {
+    console.log(err.stack)
+  } else {
+    console.log(res.rows[0])
+
+  }
+})
+  client.query(text, values)
+  .then(res => {
+    console.log(res.rows[0])
+})
+  .catch(e => console.error(e.stack))*/
+
 
   console.log(firstNames1);
   console.log(lastNames1);

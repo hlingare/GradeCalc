@@ -4,7 +4,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var result = [];
 
-server.listen(process.env.PORT || 8080,function(){
+server.listen(8080,function(){
   console.log("app running");
   getClassStandingGPA();
 })

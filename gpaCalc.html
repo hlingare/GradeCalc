@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-firestore.js"></script>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">GradeCalc</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="gpaCalc.html">GPA Calculator</a>
+      <a class="nav-item nav-link" href="cgpaCalc.html">CGPA Calculator</a>
+      <a class="nav-item nav-link" href="Graph2.html">Graph 2</a>
+      <a class="nav-item nav-link" href="faq.html">Form</a>
+    </div>
+  </div>
+</nav>
+
+
+<head>
+    <title>Purdue GPA</title>
+    <link href="main.css" rel="stylesheet">
+</head>
+
+<body>
+</br>
+  <center>
+    <h1>Purdue GPA Calculator</h1>
+  </center>
+  </br>
+    <form id="classList">
+
+        <div class="class" id="class1"> Class 1
+            <input type="text" name="ClassName">
+
+
+            <select name="weight">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+
+            <select name="grade">
+                <option selected>A+</option>
+                <option>A</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B</option>
+                <option>B-</option>
+                <option>C+</option>
+                <option>C</option>
+                <option>C-</option>
+                <option>D+</option>
+                <option>D</option>
+                <option>D-</option>
+                <option>F/I</option>
+            </select>
+        </div>
+      </br>
+        <div class="class" id="class2"> Class 2
+          <input type="text" name="ClassName">
+            <select name="weight">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+
+            <select name="grade">
+                <option selected>A+</option>
+                <option>A</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B</option>
+                <option>B-</option>
+                <option>C+</option>
+                <option>C</option>
+                <option>C-</option>
+                <option>D+</option>
+                <option>D</option>
+                <option>D-</option>
+                <option>F/I</option>
+            </select>
+
+        </div>
+        </br>
+        <div class="class" id="class3"> Class 3
+          <input type="text" name="ClassName">
+            <select name="weight">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+
+            <select name="grade">
+                <option selected>A+</option>
+                <option>A</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B</option>
+                <option>B-</option>
+                <option>C+</option>
+                <option>C</option>
+                <option>C-</option>
+                <option>D+</option>
+                <option>D</option>
+                <option>D-</option>
+                <option>F/I</option>
+            </select>
+
+        </div>
+        </br>
+        <div class="class" id="class4"> Class 4
+          <input type="text" name="ClassName">
+            <select name="weight">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+
+            <select name="grade">
+                <option selected>A+</option>
+                <option>A</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B</option>
+                <option>B-</option>
+                <option>C+</option>
+                <option>C</option>
+                <option>C-</option>
+                <option>D+</option>
+                <option>D</option>
+                <option>D-</option>
+                <option>F/I</option>
+            </select>
+
+        </div>
+        </br>
+        <div class="class" id="class5"> Class 5
+          <input type="text" name="ClassName">
+            <select name="weight">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+
+            <select name="grade">
+                <option selected>A+</option>
+                <option>A</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B</option>
+                <option>B-</option>
+                <option>C+</option>
+                <option>C</option>
+                <option>C-</option>
+                <option>D+</option>
+                <option>D</option>
+                <option>D-</option>
+                <option>F/I</option>
+            </select>
+
+        </div>
+        </br>
+        <div class="class" id="class6"> Class 6
+          <input type="text" name="ClassName">
+            <select name="weight">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+
+            <select name="grade">
+                <option selected>A+</option>
+                <option>A</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B</option>
+                <option>B-</option>
+                <option>C+</option>
+                <option>C</option>
+                <option>C-</option>
+                <option>D+</option>
+                <option>D</option>
+                <option>D-</option>
+                <option>F/I</option>
+            </select>
+        </div>
+        </br>
+        <div class="class" id="class7"> Class 7
+          <input type="text" name="ClassName">
+            <select name="weight7">
+              <option value="0" selected>0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+
+            <select name="grade">
+                <option selected>A+</option>
+                <option>A</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B</option>
+                <option>B-</option>
+                <option>C+</option>
+                <option>C</option>
+                <option>C-</option>
+                <option>D+</option>
+                <option>D</option>
+                <option>D-</option>
+                <option>F/I</option>
+            </select>
+        </div>
+        </br>
+        <input type="submit" onclick="submitForm();return false;">
+        <button type="button" onclick="loadDoc()">Change Content</button>
+    </form>
+  <!-- </center> -->
+    <!-- <canvas id="bar-chart" width="800" height="450"></canvas> -->
+    <p id="gpa"></p>
+    <script src="calculation.js"></script>
+
+
+
+</body>
+</html>

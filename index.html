@@ -1,279 +1,118 @@
-<!DOCTYPE HTML>
-<html>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/4.6.0/firebase-firestore.js"></script>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">GradeCalc</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="index.html">Home</a>
-      <a class="nav-item nav-link" href="graphs.html">Graphs</a>
-      <a class="nav-item nav-link" href="Graph2.html">Graph 2</a>
-      <a class="nav-item nav-link" href="faq.html">Form</a>
-    </div>
-  </div>
-</nav>
+<!--
+  Install dependencies with Bower:
+    bower install PolymerElements/paper-elements#^1.0.7
+ -->
 
+<html>
 
 <head>
-    <title>Purdue GPA</title>
-    <link href="main.css" rel="stylesheet">
+  <title>Auth Example</title>
+  <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+  <!--Polymer-->
+  <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="/bower_components/polymer/polymer.html">
+  <link rel="import" href="/bower_components/paper-material/paper-material.html">
+  <link rel="import" href="/bower_components/paper-button/paper-button.html">
+  <link rel="import" href="/bower_components/paper-input/paper-input.html">
+  <link rel="import" href="/bower_components/paper-styles/demo-pages.html">
+
+  <!--Firebase-->
+<script src="https://www.gstatic.com/firebasejs/4.7.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAmXoAE4CYeOkVf_tf3kwVBQb7DuuPFXyQ",
+    authDomain: "gpacalc-64745.firebaseapp.com",
+    databaseURL: "https://gpacalc-64745.firebaseio.com",
+    projectId: "gpacalc-64745",
+    storageBucket: "gpacalc-64745.appspot.com",
+    messagingSenderId: "1048611090244"
+  };
+  firebase.initializeApp(config);
+</script>
+
+  <body>
+    <template is="dom-bind" id="app">
+      <paper-material elevation="1" style="padding: 2rem;">
+        <h2>Input your email and password.</h2>
+        <paper-input label="Email" value="{{email::input}}" type="text"></paper-input>
+        <paper-input label="Password" value="{{password::input}}" type="password"></paper-input>
+        <paper-button on-click="signIn">Sign In</paper-button>
+        <paper-button on-click="register">Register</paper-button>
+        <paper-button on-click="signInWithGoogle">Sign in with google</paper-button>
+        <paper-button on-click="signOut">Sign out</paper-button>
+      </paper-material>
+    </template>
+
+    <script>
+      (function() {
+        var app = document.querySelector('#app');
+        app.signIn = function() {
+          var email = app.email;
+          var password = app.password;
+          if (!email || !password) {
+            return console.log('email and password required');
+          }
+          // Sign in user
+          firebase.auth().signInWithEmailAndPassword(email, password)
+            .catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.log('signIn error', error);
+              // ...
+            });
+            console.log("went in here");
+            window.location.href="gpaCalc.html"
+        };
+        app.register = function() {
+          var email = app.email;
+          var password = app.password;
+          if (!email || !password) {
+            return console.log('email and password required');
+          }
+          // Register user
+          firebase.auth().createUserWithEmailAndPassword(email, password)
+            .catch(function(error) {
+              console.log('register error', error);
+              if (error.code === 'auth/email-already-in-use') {
+                var credential = firebase.auth.EmailAuthProvider.credential(email, password);
+                app.signInWithGoogle()
+                  .then(function() {
+                    firebase.auth().currentUser.link(credential)
+                      .then(function(user) {
+                        console.log("Account linking success", user);
+                      }, function(error) {
+                        console.log("Account linking error", error);
+                      });
+                  });
+              }
+            });
+        };
+        app.signInWithGoogle = function() {
+          // Sign in with Google
+          var provider = new firebase.auth.GoogleAuthProvider();
+          provider.addScope('profile');
+          provider.addScope('email');
+          return firebase.auth().signInWithPopup(provider)
+            .catch(function(error) {
+              console.log('Google sign in error', error);
+            });
+        };
+        app.signOut = function() {
+          // Sign out
+          firebase.auth().signOut();
+        };
+        // Listen to auth state changes
+        firebase.auth().onAuthStateChanged(function(user) {
+          app.user = user;
+          console.log('user', user);
+        });
+      })();
+    </script>
+  </body>
+
 </head>
 
 
-
-
-<body>
-</br>
-  <center>
-    <h1>Purdue GPA Calculator</h1>
-  </center>
-  </br>
-    <form id="classList">
-
-        <div class="class" id="class1"> Class 1
-            <input type="text" name="ClassName">
-
-
-            <select name="weight">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-
-            <select name="grade">
-                <option selected>A+</option>
-                <option>A</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B</option>
-                <option>B-</option>
-                <option>C+</option>
-                <option>C</option>
-                <option>C-</option>
-                <option>D+</option>
-                <option>D</option>
-                <option>D-</option>
-                <option>F/I</option>
-            </select>
-        </div>
-      </br>
-        <div class="class" id="class2"> Class 2
-          <input type="text" name="ClassName">
-            <select name="weight">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-
-            <select name="grade">
-                <option selected>A+</option>
-                <option>A</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B</option>
-                <option>B-</option>
-                <option>C+</option>
-                <option>C</option>
-                <option>C-</option>
-                <option>D+</option>
-                <option>D</option>
-                <option>D-</option>
-                <option>F/I</option>
-            </select>
-
-        </div>
-        </br>
-        <div class="class" id="class3"> Class 3
-          <input type="text" name="ClassName">
-            <select name="weight">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-
-            <select name="grade">
-                <option selected>A+</option>
-                <option>A</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B</option>
-                <option>B-</option>
-                <option>C+</option>
-                <option>C</option>
-                <option>C-</option>
-                <option>D+</option>
-                <option>D</option>
-                <option>D-</option>
-                <option>F/I</option>
-            </select>
-
-        </div>
-        </br>
-        <div class="class" id="class4"> Class 4
-          <input type="text" name="ClassName">
-            <select name="weight">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-
-            <select name="grade">
-                <option selected>A+</option>
-                <option>A</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B</option>
-                <option>B-</option>
-                <option>C+</option>
-                <option>C</option>
-                <option>C-</option>
-                <option>D+</option>
-                <option>D</option>
-                <option>D-</option>
-                <option>F/I</option>
-            </select>
-
-        </div>
-        </br>
-        <div class="class" id="class5"> Class 5
-          <input type="text" name="ClassName">
-            <select name="weight">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-
-            <select name="grade">
-                <option selected>A+</option>
-                <option>A</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B</option>
-                <option>B-</option>
-                <option>C+</option>
-                <option>C</option>
-                <option>C-</option>
-                <option>D+</option>
-                <option>D</option>
-                <option>D-</option>
-                <option>F/I</option>
-            </select>
-
-        </div>
-        </br>
-        <div class="class" id="class6"> Class 6
-          <input type="text" name="ClassName">
-            <select name="weight">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-
-            <select name="grade">
-                <option selected>A+</option>
-                <option>A</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B</option>
-                <option>B-</option>
-                <option>C+</option>
-                <option>C</option>
-                <option>C-</option>
-                <option>D+</option>
-                <option>D</option>
-                <option>D-</option>
-                <option>F/I</option>
-            </select>
-        </div>
-        </br>
-        <div class="class" id="class7"> Class 7
-          <input type="text" name="ClassName">
-            <select name="weight7">
-              <option value="0" selected>0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-
-            <select name="grade">
-                <option selected>A+</option>
-                <option>A</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B</option>
-                <option>B-</option>
-                <option>C+</option>
-                <option>C</option>
-                <option>C-</option>
-                <option>D+</option>
-                <option>D</option>
-                <option>D-</option>
-                <option>F/I</option>
-            </select>
-        </div>
-        </br>
-        <input type="submit" onclick="submitForm();return false;">
-        <button type="button" onclick="loadDoc()">Change Content</button>
-    </form>
-  <!-- </center> -->
-    <!-- <canvas id="bar-chart" width="800" height="450"></canvas> -->
-    <p id="gpa"></p>
-    <script src="calculation.js"></script>
-
-    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <script>
-      function loadDoc() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("demo").innerHTML =
-            this.responseText;
-          }
-        };
-        xhttp.open("GET", "ajax_info.txt", true);
-        xhttp.send();
-      }
-    </script>
-
-    <script>
-        // Initialize Firebase
-        var config = {
-          apiKey: "AIzaSyAmXoAE4CYeOkVf_tf3kwVBQb7DuuPFXyQ",
-          authDomain: "gpacalc-64745.firebaseapp.com",
-          databaseURL: "https://gpacalc-64745.firebaseio.com",
-          projectId: "gpacalc-64745",
-          storageBucket: "gpacalc-64745.appspot.com",
-          messagingSenderId: "1048611090244"
-        };
-        firebase.initializeApp(config);
-    </script>
-
-</body>
 </html>

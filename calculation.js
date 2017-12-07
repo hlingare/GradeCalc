@@ -1,4 +1,28 @@
+function loginForm(){
+    var userName = document.getElementById('u').value;
+    var password = document.getElementById('p').value;
+    console.log(userName);
+    console.log(password);
+    console.log("went in here");
+    var data1 = {
+      Username: userName,
+        Password: password
+    }
+    var x = new XMLHttpRequest()
 
+    x.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    window.location.href = "index.html"
+    }
+    }
+
+    x.open("POST", "http://localhost:8080/password", true);
+    x.setRequestHeader("Content-type", "application/json");
+    x.send(JSON.stringify({Username: userName,
+      password: password
+      }));
+    return data1;
+}
 
 function submitForm() {
     var totalSum = 0;
@@ -19,6 +43,19 @@ function submitForm() {
     var gpa = round(totalSum / totalCredits, 2);
     var div = document.getElementById("gpa");
     div.innerHTML = "Your Purdue GPA is " + gpa;
+}
+
+function submitForm1() {
+  var count = 0;
+  for (i = 1; i < 4; i++) {
+    var name = "ClassName"+i;
+      console.log();
+    if (document.getElementById("ClassName"+i).value > 0) {
+      count++;
+    }
+  }
+  var totalSum = 0;
+  console.log(count);
 }
 
 function sendData(){

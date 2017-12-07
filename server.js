@@ -1,6 +1,20 @@
 var express = require("express");
 var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+var result = [];
 
+server.listen(8080,function(){
+  console.log("app running");
+  getClassStandingGPA();
+})
+
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: getClassStandingGPA()});
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
 
 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
@@ -36,29 +50,73 @@ app.get("/",function(req,res){
   res.render("index");
 })
 
-app.listen(port,function(){
-  console.log("app running");
-})
+function getClassStandingGPA(){
 
-/*  apiKey: '### FIREBASE API KEY ###',
-  authDomain: '### FIREBASE AUTH DOMAIN ###',
-  projectId: '### CLOUD FIRESTORE PROJECT ID ###'
-});
+  const text = "SELECT username, class_standing, gpa FROM STUDENT";
+  var gpaStanding = [];
+  var realRes;
+  client.query(text,(err, res) => {
+    if (err) {
+      //console.log(err.stack)
+    } else {
+    result = res.rows;
 
-// Initialize Cloud Firestore through Firebase
-var db = firebase.firestore();
+    }
+    result = res.rows;
 
-db.collection("users").add({
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815
-})
-.then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-})
-.catch(function(error) {
-    console.error("Error adding document: ", error);
-});*/
+    //console.log(juniorGPA/numOfJunior);
+    //console.log(seniorGPA/numOfSenior);
+  })
+  client.query(text)
+  .then(res => {
+  })
+  .catch(e => console.error(e.stack))
+
+
+  var numOfFreshman = 0;
+  var freshmanGPA = 0;
+  var numOfSophmore = 0;
+  var sophmoreGPA = 0;
+  var numOfJunior = 0;
+  var juniorGPA = 0;
+  var numOfSenior = 0;
+  var seniorGPA = 0;
+  for(i = 0; i < result.length; i++){
+    var standing = result[i].class_standing;
+    if(standing == "Freshman"){
+      numOfFreshman++;
+      freshmanGPA += result[i].gpa;
+    }
+    if(standing == "Sophmore"){
+      numOfSophmore++;
+      sophmoreGPA += result[i].gpa;
+    }
+    if(standing == "Junior"){
+      numOfJunior++;
+      juniorGPA += result[i].gpa;
+    }
+    if(standing == "Freshman"){
+      numOfSenior++;
+      seniorGPA += result[i].gpa;
+    }
+  }
+  var gpaStanding = [freshmanGPA/numOfFreshman, sophmoreGPA/numOfSophmore,juniorGPA/numOfJunior,seniorGPA/numOfSenior];
+  if (sophmoreGPA == null){
+    sophmoreGPA = 0;
+  }
+  var x = new XMLHttpRequest()
+  x.open("GET", "http://localhost:8080/graphs1", true);
+  x.setRequestHeader("Content-type", "application/json");
+  x.send(JSON.stringify({
+    Freshman: freshmanGPA/numOfFreshman + "",
+    Sophmore: sophmoreGPA/numOfSophmore + "",
+    Junior: juniorGPA/numOfJunior + "",
+    Senior: seniorGPA/numOfSenior + ""
+  }));
+  console.log(gpaStanding);
+  return gpaStanding;
+}
+
 
 app.post("/faq", function(request, response) {
   console.log("hello went in here");
@@ -77,8 +135,7 @@ app.post("/faq", function(request, response) {
   const values = [19,"username",firstname, lastname, gender, class1, housing,school,intern,gpa];
 
   var xhr = new XMLHttpRequest();
-  //console.log(xhr.open("GET", "http://localhost:8080/faq"));
-//xhr.send();
+
 
 
   client.query(text, values, (err, res) => {

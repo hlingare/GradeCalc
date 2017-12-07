@@ -26,33 +26,54 @@
     <p id="gpa"></p>
     <script src="calculation.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <script>
-      function loadDoc() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("demo").innerHTML =
-            this.responseText;
-          }
-        };
-        xhttp.open("GET", "ajax_info.txt", true);
-        xhttp.send();
-      }
-    </script>
+    <script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost:8080');
+  socket.on('news', function (data) {
+    //console.log(data);
+    var array = data.hello;
+    console.log(array);
+    socket.emit('my other event', { my: 'data' });
 
-    <script>
-        // Initialize Firebase
-        var config = {
-          apiKey: "AIzaSyAmXoAE4CYeOkVf_tf3kwVBQb7DuuPFXyQ",
-          authDomain: "gpacalc-64745.firebaseapp.com",
-          databaseURL: "https://gpacalc-64745.firebaseio.com",
-          projectId: "gpacalc-64745",
-          storageBucket: "gpacalc-64745.appspot.com",
-          messagingSenderId: "1048611090244"
-        };
-        firebase.initializeApp(config);
-    </script>
+    new Chart(document.getElementById("bar-chart"), {
+        type: 'bar',
+        data: {
+          labels: ["Freshman", "Sophmore", "Junior", "Senior"],
+          datasets: [
+            {
+              label: "GPA",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+              data: array
+            }
+          ]
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: 'Class Standing Averge GPA'
+          },
+          layout: {
+            padding: {
+                left: 50,
+                right: 50,
+                top: 50,
+                bottom: 75
+            }
+          },
+          scales: {
+                yAxes : [{
+                    ticks : {
+                        max : 4,
+                        min : 0
+                    }
+                }]
+            }
+        }
+    });
+
+  });
+</script>
 
 </body>
 </html>

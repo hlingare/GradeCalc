@@ -81,47 +81,6 @@ x.send(JSON.stringify({FirstName: firstNames1,
 
   console.log("went in send data");
   return data;
-
-
-
-/*  const client = new pg.Client({
-    user: 'lwcgiddjtbmhdx',
-    host: 'ec2-184-73-202-112.compute-1.amazonaws.com',
-    database: 'dc9d3cs6oinv8d',
-    password: '69b00ca84a3bf00a6ffc4b26fb7fc3df3fbfd4b1bd38623e096f9028bfc65405',
-    port: 5432,
-
-  })
-  client.connect();
-
-  const text = "INSERT INTO student (username, firstname, lastname, gender, class_standing, housing, schools, num_internships, gpa)";
-  const values = [firstNames1, lastNames1, genderType, classStandingType, housingType,schoolType,numInternship,gpa];
-
-  client.query(text, values, (err, res) => {
-  if (err) {
-    console.log(err.stack)
-  } else {
-    console.log(res.rows[0])
-
-  }
-})
-  client.query(text, values)
-  .then(res => {
-    console.log(res.rows[0])
-})
-  .catch(e => console.error(e.stack))*/
-
-
-  console.log(firstNames1);
-  console.log(lastNames1);
-  console.log(genderType);
-  console.log(classStandingType);
-  console.log(housingType);
-  console.log(schoolType);
-  console.log(numInternship);
-  console.log(gpa);
-
-  console.log("went in send data");
 }
 
 function round(value, precision) {
@@ -129,15 +88,18 @@ function round(value, precision) {
     return Math.round(value * multiplier) / multiplier;
 }
 
+
+
+
 new Chart(document.getElementById("bar-chart"), {
     type: 'bar',
     data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      labels: ["Africa", "Asia", "Europe", "Latin America"],
       datasets: [
         {
           label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [2478,5267,734,784,433]
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
+          data: [2478,5267,734,784]
         }
       ]
     },

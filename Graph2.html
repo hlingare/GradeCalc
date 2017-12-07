@@ -11,8 +11,8 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link active" href="graphs.html">Graphs</a>
-      <a class="nav-item nav-link" href="Graph2.html">Graph 2</a>
+      <a class="nav-item nav-link" href="graphs.html">Graphs</a>
+      <a class="nav-item nav-link active" href="Graph2.html">Graph 2</a>
       <a class="nav-item nav-link" href="faq.html">Form</a>
     </div>
   </div>
@@ -39,12 +39,12 @@
     new Chart(document.getElementById("bar-chart"), {
         type: 'bar',
         data: {
-          labels: ["Freshman", "Sophmore", "Junior", "Senior"],
+          labels: ["0", "1", "2", "3", "4", "5"],
           datasets: [
             {
               label: "GPA",
-              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9"],
-              data: array
+              backgroundColor: ["#3e95cd", "#E74C3C","#D68910","#FFFF00","#884EA0","#0E6251"],
+              data: [1,3,5,7,4,5]
             }
           ]
         },
@@ -52,7 +52,7 @@
           legend: { display: false },
           title: {
             display: true,
-            text: 'Class Standing Averge GPA'
+            text: 'Number of Internships Averge GPA'
           },
           layout: {
             padding: {

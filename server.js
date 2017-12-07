@@ -10,9 +10,9 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 //require("firebase/firestore");
 var pg = require('pg');
 const connectionString = process.env.DATABASE_URL || 'postgres://lwcgiddjtbmhdx:69b00ca84a3bf00a6ffc4b26fb7fc3df3fbfd4b1bd38623e096f9028bfc65405@ec2-184-73-202-112.compute-1.amazonaws.com:5432/dc9d3cs6oinv8d';
-
+var count = 0;
 //var client = new pg.Client(connectionString);
-
+var result = [];
 var client = new pg.Client({
     user: "lwcgiddjtbmhdx",
     password: "69b00ca84a3bf00a6ffc4b26fb7fc3df3fbfd4b1bd38623e096f9028bfc65405",
@@ -36,29 +36,97 @@ app.get("/",function(req,res){
   res.render("index");
 })
 
+
 app.listen(port,function(){
   console.log("app running");
+  //getClassStandingGPA();
 })
 
-/*  apiKey: '### FIREBASE API KEY ###',
-  authDomain: '### FIREBASE AUTH DOMAIN ###',
-  projectId: '### CLOUD FIRESTORE PROJECT ID ###'
+function test1(){
+  return "2";
+}
+
+function getClassStandingGPA(){
+
+  const text = "SELECT username, class_standing, gpa FROM STUDENT";
+  var gpaStanding = [];
+  var realRes;
+  client.query(text,(err, res) => {
+    if (err) {
+      //console.log(err.stack)
+    } else {
+      console.log("GO IN ELSE?")
+
+    //console.log(res.rows)
+
+    result = res.rows;
+
+    }
+    result = res.rows;
+
+    //console.log(juniorGPA/numOfJunior);
+    //console.log(seniorGPA/numOfSenior);
+  })
+  client.query(text)
+  .then(res => {
+  })
+  .catch(e => console.error(e.stack))
+
+
+  var numOfFreshman = 0;
+  var freshmanGPA = 0;
+  var numOfSophmore = 0;
+  var sophmoreGPA = 0;
+  var numOfJunior = 0;
+  var juniorGPA = 0;
+  var numOfSenior = 0;
+  var seniorGPA = 0;
+  for(i = 0; i < result.length; i++){
+    var standing = result[i].class_standing;
+    if(standing == "Freshman"){
+      numOfFreshman++;
+      freshmanGPA += result[i].gpa;
+    }
+    if(standing == "Sophmore"){
+      numOfSophmore++;
+      sophmoreGPA += result[i].gpa;
+    }
+    if(standing == "Junior"){
+      numOfJunior++;
+      juniorGPA += result[i].gpa;
+    }
+    if(standing == "Freshman"){
+      numOfSenior++;
+      seniorGPA += result[i].gpa;
+    }
+  }
+  var gpaStanding = [freshmanGPA/numOfFreshman, sophmoreGPA/numOfSophmore,juniorGPA/numOfJunior,seniorGPA/numOfSenior];
+  if (sophmoreGPA == null){
+    sophmoreGPA = 0;
+  }
+  var x = new XMLHttpRequest()
+  x.open("GET", "http://localhost:8080/graphs1", true);
+  x.setRequestHeader("Content-type", "application/json");
+  x.send(JSON.stringify({
+    Freshman: freshmanGPA/numOfFreshman + "",
+    Sophmore: sophmoreGPA/numOfSophmore + "",
+    Junior: juniorGPA/numOfJunior + "",
+    Senior: seniorGPA/numOfSenior + ""
+  }));
+  //realRes = res;
+  //console.log(juniorGPA/numOfJunior);
+  return gpaStanding;
+
+  //console.log(result);
+  //console.log("REALRES:");
+}
+
+
+
+app.get('/graphs1', (req, res) => {
+  res.json(getClassStandingGPA())
+  //res.json({message: "print out something"});
 });
-
-// Initialize Cloud Firestore through Firebase
-var db = firebase.firestore();
-
-db.collection("users").add({
-    first: "Ada",
-    last: "Lovelace",
-    born: 1815
-})
-.then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
-})
-.catch(function(error) {
-    console.error("Error adding document: ", error);
-});*/
 
 app.post("/faq", function(request, response) {
   console.log("hello went in here");
@@ -70,16 +138,11 @@ app.post("/faq", function(request, response) {
   var school = request.body.School;
   var intern = request.body.InternshipNum;
   var gpa = request.body.gpaNum;
-
+  var username = firstname + lastname;
 
 
   const text = "INSERT INTO student (id,username, firstname, lastname, gender, class_standing, housing, schools, num_internships, gpa) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)";
-  const values = [19,"username",firstname, lastname, gender, class1, housing,school,intern,gpa];
-
-  var xhr = new XMLHttpRequest();
-  //console.log(xhr.open("GET", "http://localhost:8080/faq"));
-//xhr.send();
-
+  const values = [31,username,firstname, lastname, gender, class1, housing,school,intern,gpa];
 
   client.query(text, values, (err, res) => {
     if (err) {
@@ -94,5 +157,5 @@ app.post("/faq", function(request, response) {
     console.log(res.rows[0])
   })
   .catch(e => console.error(e.stack))
-
+  count++;
   });

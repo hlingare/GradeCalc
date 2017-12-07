@@ -6,7 +6,8 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "4.13.3"
+    "express": "4.13.3",
+    "jquery": "^3.2.1"
   },
   "author": "Harsha",
   "license": "ISC"

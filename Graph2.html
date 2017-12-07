@@ -31,13 +31,13 @@
     <script src="/socket.io/socket.io.js"></script>
 <script>
   console.log("hello");
-  console.log(location.port);
-  var socket = io.connect('http://localhost:'+location.port);
-  socket.on('news', function (data) {
-    //console.log(data);
-    var array = data.hello;
-    console.log(array);
-    socket.emit('my other event', { my: 'data' });
+  // console.log(location.port);
+  // var socket = io.connect('http://localhost:'+location.port);
+  // socket.on('news', function (data) {
+  //   //console.log(data);
+  //   var array = data.hello;
+  //   console.log(array);
+  //   socket.emit('my other event', { my: 'data' });
 
     new Chart(document.getElementById("bar-chart"), {
         type: 'bar',

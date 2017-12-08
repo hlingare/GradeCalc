@@ -13,8 +13,8 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link" href="gpaCalc.html">GPA Calculator</a>
       <a class="nav-item nav-link" href="cgpaCalc.html">Graph 1</a>
-      <a class="nav-item nav-link active" href="Graph2.html">Graph 2</a>
-      <a class="nav-item nav-link" href="graph3.html">Graph 3</a>
+      <a class="nav-item nav-link" href="Graph2.html">Graph 2</a>
+      <a class="nav-item nav-link active" href="graph3.html">Graph 3</a>
       <a class="nav-item nav-link" href="faq.html">Form</a>
       <a class="nav-item nav-link" href="index.html">Logout</a>
     </div>
@@ -36,17 +36,17 @@
   var socket = io();
   socket.on('news', function (data) {
     //console.log(data);
-    var array = data.hello1;
+    var array = data.hello2;
     console.log(array);
     socket.emit('my other event', { my: 'data' });
     new Chart(document.getElementById("bar-chart"), {
         type: 'bar',
         data: {
-          labels: ["0", "1", "2", "3","4","5"],
+          labels: ["College of Agriculture", "College of Education", "College of Health and Human Sciences", "College of Liberal Arts","Krannert School of Management","College of Pharmacy","Purdue Polytechnic Institute","College of Science","College of Veterinary Medicine","Honors College","The Graduate School"],
           datasets: [
             {
               label: "GPA",
-              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#e8c3b9","#e8c3b9"],
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#e8c3b9","#e8c3b9","#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#e8c3b9"],
               data: array
             }
           ]

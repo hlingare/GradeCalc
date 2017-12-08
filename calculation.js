@@ -103,7 +103,7 @@ window.location.href = "youtube.html"
 }
 }
 
-x.open("POST", "http://localhost:8080/faq", true);
+x.open("POST", "https://shielded-ravine-59791.herokuapp.com/faq", true);
 x.setRequestHeader("Content-type", "application/json");
 x.send(JSON.stringify({FirstName: firstNames1,
   lastName: lastNames1,
